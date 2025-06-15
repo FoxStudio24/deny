@@ -25,7 +25,7 @@ function addDevice(message) {
             <div class="main-slider" id="mainSlider"></div>
             <div class="main-indicators" id="mainIndicators"></div>
           </div>
-          <button class="login-button" id="passwordLoginBtn">Вход по паролю</button>
+          <div class="simple-button selector" id="passwordLoginBtn" style="margin: 0.5em;">Вход по паролю</div>
           <span class="info" style="display: flex; align-items: center;">
             <div style="width: 2px; height: 20px; background-color: red; margin-right: 10px;"></div>
             ${message ? message + '<br><br>unic_id: ' + Lampa.Storage.get('lampac_unic_id', '') : 'Чтобы получить логин, обратитесь к администратору.'}
@@ -256,7 +256,7 @@ function addDevice(message) {
           justify-content: center;
         }
 
-        .lampa-custom-login .login-button {
+        .lampa-custom-login .simple-button {
           background: #fff;
           border: none;
           color: rgb(0, 0, 0);
@@ -268,6 +268,9 @@ function addDevice(message) {
           transition: all 0.3s ease;
           font-family: 'SegoeUI', sans-serif;
           align-items: center;
+          display: inline-block;
+          text-align: center;
+          line-height: 2.2em;
         }
 
         .lampa-custom-login .info {
@@ -276,12 +279,12 @@ function addDevice(message) {
           margin-top: 20px;
         }
 
-        .lampa-custom-login .login-button:hover {
+        .lampa-custom-login .simple-button:hover {
           transform: translateY(-2px);
           box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
         }
 
-        .lampa-custom-login .login-button:active {
+        .lampa-custom-login .simple-button:active {
           transform: translateY(0);
         }
 
@@ -329,8 +332,18 @@ function addDevice(message) {
       initSliders();
     }, 100);
 
-    // Обработчик кнопки входа по паролю
+    // Обработчик кнопки входа по паролю с hover:enter из старого плагина
     container.querySelector('#passwordLoginBtn').addEventListener('click', function() {
+      handlePasswordLogin();
+    });
+
+    // Поддержка hover:enter для совместимости с Lampa
+    var passwordBtn = container.querySelector('#passwordLoginBtn');
+    if (passwordBtn) {
+      passwordBtn.addEventListener('hover:enter', handlePasswordLogin);
+    }
+
+    function handlePasswordLogin() {
       document.body.removeChild(container);
       
       Lampa.Input.edit({
@@ -373,7 +386,7 @@ function addDevice(message) {
           Lampa.Noty.show(Lampa.Lang.translate('account_code_wrong'));
         }
       });
-    });
+    }
 
     // Функция инициализации слайдеров
     function initSliders() {
