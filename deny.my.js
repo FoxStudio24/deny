@@ -191,8 +191,21 @@ function addDevice(message) {
 
         .lampa-custom-login .login-header .line {
           display: block;
-          opacity: 1;
-          transform: translateY(0);
+          opacity: 0;
+          transform: translateY(20px);
+          animation: slideUp 0.6s ease-out forwards;
+        }
+
+        .lampa-custom-login .login-header .line:nth-child(1) { animation-delay: 0.1s; }
+        .lampa-custom-login .login-header .line:nth-child(2) { animation-delay: 0.2s; }
+        .lampa-custom-login .login-header .line:nth-child(3) { animation-delay: 0.3s; }
+        .lampa-custom-login .login-header .line:nth-child(4) { animation-delay: 0.4s; }
+
+        @keyframes slideUp {
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
         }
 
         .lampa-custom-login .main-slider-container {
